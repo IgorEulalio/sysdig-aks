@@ -1,0 +1,46 @@
+global:
+  clusterConfig:
+    name: ${cluster_name}
+  sysdig:
+    region: us4
+    accessKey: ${access_key}
+  kspm:
+    deploy: true
+## rapid response enablement
+rapidResponse:
+  enabled: false
+  rapidResponse:
+    passphrase: YWJj  
+nodeAnalyzer:
+  enabled: false
+  nodeAnalyzer:
+    benchmarkRunner:
+      deploy: false
+    hostAnalyzer:
+      deploy: false
+    runtimeScanner:
+      deploy: false      
+      ## eveConnector is used for third party integrations
+      eveConnector:
+        deploy: false
+      settings:
+        eveEnabled: true
+      env: ## set env variables for runtimeScanner
+        SCANNER_RUN_TIMEOUT: 3h
+        MY_ENV: my_value
+      image: ## set image for runtimeScanner
+        repository: sysdig/vuln-runtime-scanner
+        tag: "1.5.5"
+  secure:
+    vulnerabilityManagement:
+      newEngineOnly: true
+agent:
+  image:
+    tag: 12.16.2 ## set agent version 
+
+clusterScanner:
+  enabled: false ## clusterScanner must be disabled if using runtimeScanner.
+  eveEnabled: true
+  scannerMode: "local"
+  replicaCount: 1  
+
