@@ -1,4 +1,4 @@
 locals {
-    name     = "sysdig-aks"
-    dns_name = "sysdigaks"
+  name     = "sysdig-aks"
+  dns_name = "sysdigaks"
 }
