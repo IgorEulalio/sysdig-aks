@@ -5,7 +5,7 @@ global:
     region: us4
     accessKey: ${access_key}
   kspm:
-    deploy: true
+    deploy: false
 ## rapid response enablement
 rapidResponse:
   enabled: false
@@ -36,7 +36,10 @@ nodeAnalyzer:
       newEngineOnly: true
 agent:
   image:
-    tag: 12.16.2 ## set agent version 
+    tag: 12.17.0 ## set agent version
+  ebpf:
+    enabled: true
+    kind: universal_ebpf
 
 clusterScanner:
   enabled: false ## clusterScanner must be disabled if using runtimeScanner.
