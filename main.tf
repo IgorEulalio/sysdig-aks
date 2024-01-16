@@ -8,7 +8,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location            = azurerm_resource_group.dev.location
   resource_group_name = azurerm_resource_group.dev.name
   dns_prefix          = local.dns_name
-
+  
+  node_os_channel_upgrade = "NodeImage"
+  
   default_node_pool {
     name       = "default"
     node_count = 1

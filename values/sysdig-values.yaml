@@ -36,7 +36,7 @@ nodeAnalyzer:
       newEngineOnly: true
 agent:
   image:
-    tag: 12.17.0 ## set agent version
+    tag: 12.19.0 ## set agent version
   ebpf:
     enabled: true
     kind: universal_ebpf
