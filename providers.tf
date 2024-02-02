@@ -16,6 +16,9 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = ">= 1.14"
     }
+    sysdig = {
+      source = "sysdiglabs/sysdig"
+    }
   }
 }
 
@@ -47,4 +50,9 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].cluster_ca_certificate)
   client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].client_key)
   client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].client_certificate)
+}
+
+provider "sysdig" {
+  sysdig_secure_url       = "https://app.us4.sysdig.com"
+  sysdig_secure_api_token = var.sysdig_accesskey
 }
