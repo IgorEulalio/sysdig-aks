@@ -23,5 +23,5 @@ provider "azuread" {
 
 provider "sysdig" {
   sysdig_secure_url       = "https://app.us4.sysdig.com"
-  sysdig_secure_api_token = var.sysdig_accesskey
+  sysdig_secure_api_token = var.sysdig_secure_api_token
 }
