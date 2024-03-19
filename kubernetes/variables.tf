@@ -16,13 +16,13 @@ variable "sysdig_secure_api_token" {
   sensitive   = true
 }
 
-variable "service_account_user" {
-  description = "service account user"
-  type        = string
-}
+# variable "service_account_user" {
+#   description = "service account user"
+#   type        = string
+# }
 
-variable "service_account_password" {
-  description = "service account password"
-  type        = string
-  sensitive   = true
-}
+# variable "service_account_password" {
+#   description = "service account password"
+#   type        = string
+#   sensitive   = true
+# }
