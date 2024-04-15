@@ -42,7 +42,7 @@ agent:
     kind: universal_ebpf
 
 clusterScanner:
-  enabled: false ## clusterScanner must be disabled if using runtimeScanner.
+  enabled: true ## clusterScanner must be disabled if using runtimeScanner.
   eveEnabled: true
   scannerMode: "local"
   replicaCount: 1  
