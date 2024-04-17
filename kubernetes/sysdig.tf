@@ -4,12 +4,14 @@ resource "helm_release" "sysdig_agent" {
   namespace        = "sysdig-agent"
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
+  version          = "1.49.6"
   create_namespace = true
 
   values = [
     templatefile("${path.module}/values/sysdig-values.yaml", {
       cluster_name = local.name
-      access_key   = var.sysdig_accesskey
+      access_key   = var.sysdig_accesskey,
+      secure_api_token = var.sysdig_secure_api_token,
     }),
   ]
 
