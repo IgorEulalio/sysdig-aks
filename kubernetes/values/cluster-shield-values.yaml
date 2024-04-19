@@ -1,0 +1,17 @@
+
+cluster_shield:
+  cluster_config:
+    name: ${cluster_name}
+  features:
+    admission_control:
+      enabled: true
+    audit:
+      enabled: true
+    container_vulnerability_management:
+      enabled: true
+    posture:
+      enabled: true
+  sysdig_endpoint:
+    api_url: ${url}
+    secure_api_token: ${secure_api_token}
+    access_key: ${access_key}
