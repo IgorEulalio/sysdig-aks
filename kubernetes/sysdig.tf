@@ -22,9 +22,10 @@ resource "helm_release" "sysdig_cluster_shield" {
 
   name             = "sysdig-cluster-shield"
   namespace        = "sysdig-cluster-shield"
-  repository       = "oci://quay.io/sysdig"
+  # repository       = "oci://quay.io/sysdig"
+  repository       = "oci://us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-charts"
   chart            = "cluster-shield"
-  version          = "0.8.0-helm"
+  version          = "0.0.0-2eaf4b0"
   create_namespace = true
 
   values = [

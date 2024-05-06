@@ -1,10 +1,14 @@
 
 cluster_shield:
+  log_level: debug
   cluster_config:
     name: ${cluster_name}
+    
   features:
     admission_control:
       enabled: true
+      deny_on_error: false
+      dry_run: false
     audit:
       enabled: true
     container_vulnerability_management:
@@ -15,3 +19,7 @@ cluster_shield:
     api_url: ${url}
     secure_api_token: ${secure_api_token}
     access_key: ${access_key}
+image:
+  tag: 0.9.0
+  repository: quay.io/sysdig/cluster-shield
+replicaCount: 1
