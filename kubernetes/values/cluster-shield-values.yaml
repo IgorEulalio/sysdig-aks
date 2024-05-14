@@ -3,7 +3,6 @@ cluster_shield:
   log_level: debug
   cluster_config:
     name: ${cluster_name}
-    
   features:
     admission_control:
       enabled: true
