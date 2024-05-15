@@ -16,6 +16,12 @@ variable "sysdig_secure_api_token" {
   sensitive   = true
 }
 
+variable "gar_secret" {
+  description = "gar secret"
+  type        = string
+  sensitive   = true
+}
+
 # variable "service_account_user" {
 #   description = "service account user"
 #   type        = string

@@ -4,13 +4,13 @@ resource "helm_release" "sysdig_agent" {
   namespace        = "sysdig-agent"
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.49.6"
+  version          = "1.52.6"
   create_namespace = true
 
   values = [
     templatefile("${path.module}/values/sysdig-values.yaml", {
-      cluster_name = local.name
-      access_key   = var.sysdig_accesskey,
+      cluster_name     = local.name
+      access_key       = var.sysdig_accesskey,
       secure_api_token = var.sysdig_secure_api_token,
     }),
   ]
@@ -20,20 +20,22 @@ resource "helm_release" "sysdig_agent" {
 
 resource "helm_release" "sysdig_cluster_shield" {
 
-  name             = "sysdig-cluster-shield"
-  namespace        = "sysdig-cluster-shield"
+  name      = "sysdig-cluster-shield"
+  namespace = "sysdig-cluster-shield"
   # repository       = "oci://quay.io/sysdig"
   repository       = "oci://us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-charts"
   chart            = "cluster-shield"
-  version          = "0.0.0-2eaf4b0"
+  version          = "0.0.0-5632308"
   create_namespace = true
 
   values = [
     templatefile("${path.module}/values/cluster-shield-values.yaml", {
-      cluster_name = local.name
-      access_key   = var.sysdig_accesskey,
+      cluster_name     = local.name
+      access_key       = var.sysdig_accesskey,
       secure_api_token = var.sysdig_secure_api_token,
-      url = var.sysdig_secure_url,
+      url              = var.sysdig_secure_url,
+      # gar_secret_name  = kubernetes_secret_v1.gar_cred.metadata.0.name,
+      gar_secret_name  = "gar-cred",
     }),
   ]
 
@@ -42,6 +44,27 @@ resource "helm_release" "sysdig_cluster_shield" {
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
+# resource "kubernetes_secret_v1" "gar_cred" {
+#   metadata {
+#     name      = "gar-cred"
+#     namespace = "sysdig-cluster-shield"
+#   }
+
+#   type = "kubernetes.io/dockerconfigjson"
+
+#   data = {
+#     ".dockerconfigjson" = jsonencode({
+#       auths = {
+#         "us-docker.pkg.dev" = {
+#           "username" = "oauth2accesstoken"
+#           "password" = var.gar_secret
+#           "email"    = "igor.eulalio@sysdig.com"
+#           # "auth"     = base64encode("${igor.eulalio@sysdig.com}:${var.gar_secret}")
+#         }
+#       }
+#     })
+#   }
+# }
 # resource "helm_release" "registry_scanner" {
 #   name             = "registry-scanner"
 #   chart            = "registry-scanner"

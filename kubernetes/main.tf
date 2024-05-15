@@ -12,9 +12,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
   node_os_channel_upgrade = "NodeImage"
 
   default_node_pool {
-    name       = "default"
-    node_count = 1
-    vm_size    = "Standard_D3_v2"
+    name                        = "default"
+    node_count                  = 1
+    vm_size                     = "Standard_D3_v2"
     temporary_name_for_rotation = "defaultnew"
   }
 

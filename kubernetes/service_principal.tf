@@ -1,7 +1,7 @@
 data "azuread_client_config" "current" {}
 
 resource "azuread_application" "registry_scanner" {
-  provider = azuread
+  provider     = azuread
   display_name = "sysdig-registry-scanner"
   owners       = [data.azuread_client_config.current.object_id]
 }

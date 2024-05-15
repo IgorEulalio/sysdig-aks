@@ -6,7 +6,7 @@ global:
     accessKey: ${access_key}
     secureAPIToken: ${secure_api_token}
   kspm:
-    deploy: false
+    deploy: true
   loggingLevel: "DEBUG"
 ## rapid response enablement
 rapidResponse:
@@ -29,10 +29,8 @@ nodeAnalyzer:
         eveEnabled: true
       env: ## set env variables for runtimeScanner
         SCANNER_RUN_TIMEOUT: 3h
-        MY_ENV: my_value
       image: ## set image for runtimeScanner
         repository: sysdig/vuln-runtime-scanner
-        # tag: "1.5.5"
   secure:
     vulnerabilityManagement:
       newEngineOnly: true
