@@ -21,7 +21,7 @@ cluster_shield:
     secure_api_token: ${secure_api_token}
     access_key: ${access_key}
 image:
-  tag: "5632308"
+  tag: 466cae8
   repository: us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-docker/agent/cluster-shield
 replicaCount: 1
 imagePullSecrets:
