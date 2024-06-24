@@ -10,6 +10,12 @@ variable "sysdig_secure_url" {
   default     = "https://app.us4.sysdig.com"
 }
 
+variable "region" {
+  description = "region"
+  type        = string
+  default     = "us4"
+}
+
 variable "sysdig_secure_api_token" {
   description = "sysdig secure api token"
   type        = string

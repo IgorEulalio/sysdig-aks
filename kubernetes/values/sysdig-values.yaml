@@ -2,17 +2,15 @@ global:
   clusterConfig:
     name: ${cluster_name}
   sysdig:
-    region: us4
+    region: ${region}
     accessKey: ${access_key}
     secureAPIToken: ${secure_api_token}
+  # proxy:
+  #   httpProxy:  myhttpproxy
+  #   httpsProxy: myhttpsproxy
+  #   noProxy: noproxylist1,noproxylist2
   kspm:
     deploy: true
-  loggingLevel: "DEBUG"
-## rapid response enablement
-rapidResponse:
-  enabled: false
-  rapidResponse:
-    passphrase: YWJj  
 nodeAnalyzer:
   enabled: true
   nodeAnalyzer:
@@ -21,56 +19,44 @@ nodeAnalyzer:
     hostAnalyzer:
       deploy: false
     runtimeScanner:
-      deploy: false      
-      ## eveConnector is used for third party integrations
-      eveConnector:
-        deploy: false
-      settings:
-        eveEnabled: true
-      env: ## set env variables for runtimeScanner
-        SCANNER_RUN_TIMEOUT: 3h
-      image: ## set image for runtimeScanner
-        repository: sysdig/vuln-runtime-scanner
+      deploy: false
   secure:
     vulnerabilityManagement:
       newEngineOnly: true
+kspmCollector:
+  enabled: false
 agent:
   image:
-    tag: 13.0.4 ## set agent version
+    tag: 13.2.0
   ebpf:
     enabled: true
     kind: universal_ebpf
-
-clusterScanner:
+  tolerations:
+  - key: MyTolerationKey
+    operator: Equal
+    value: MyTolerationValue
+    effect: NoSchedule
+admissionController:
   enabled: false
-  eveEnabled: true
-  sslVerifyCertificate: true
-  # scannerMode: "multi"
-  scannerMode: "local"
-  replicaCount: 2
-
-  runtimeStatusIntegrator:
-    # multiCluster:
-      # kubeconfigSecretName: "sysdig-cluster-scanner-clusters-conf"
-    image:
-      registry: "quay.io"
-      repository: "sysdig/runtime-status-integrator"
-    resources:
-      limits:
-        cpu: "1"
-        memory: 350Mi
-      requests:
-        cpu: "350m"
-        memory: 350Mi
-  imageSbomExtractor:
-    image:
-      registry: "quay.io"
-      repository: "sysdig/image-sbom-extractor"
-    resources:
-      limits:
-        cpu: "1"
-        memory: 350Mi
-      requests:
-        cpu: "350m"
-        memory: 350Mi
-
+clusterShield:
+  tolerations:
+  - key: MyTolerationKey
+    operator: Equal
+    value: MyTolerationValue
+    effect: NoSchedule
+  enabled: true
+  cluster_shield:
+    log_level: warn
+    features:
+      admission_control:
+        enabled: true
+      audit:
+        enabled: true
+      container_vulnerability_management:
+        enabled: true
+      posture:
+        enabled: true
+  # image:
+  #   tag: $your_image
+  #   repository: $your_repo
+  replicaCount: 1

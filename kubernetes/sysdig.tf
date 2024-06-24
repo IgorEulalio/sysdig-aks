@@ -4,7 +4,7 @@ resource "helm_release" "sysdig_agent" {
   namespace        = "sysdig-agent"
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.52.6"
+  version          = "1.56.6"
   create_namespace = true
 
   values = [
@@ -12,37 +12,38 @@ resource "helm_release" "sysdig_agent" {
       cluster_name     = local.name
       access_key       = var.sysdig_accesskey,
       secure_api_token = var.sysdig_secure_api_token,
+      region           = var.region,
     }),
   ]
 
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
-resource "helm_release" "sysdig_cluster_shield" {
+# resource "helm_release" "sysdig_cluster_shield" {
 
-  name      = "sysdig-cluster-shield"
-  namespace = "sysdig-cluster-shield"
-  # repository       = "oci://quay.io/sysdig"
-  repository       = "oci://us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-charts"
-  chart            = "cluster-shield"
-  version          = "0.0.0-5632308"
-  create_namespace = true
+#   name      = "sysdig-cluster-shield"
+#   namespace = "sysdig-cluster-shield"
+#   # repository       = "oci://quay.io/sysdig"
+#   repository       = "oci://us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-charts"
+#   chart            = "cluster-shield"
+#   version          = "0.0.0-5632308"
+#   create_namespace = true
 
-  values = [
-    templatefile("${path.module}/values/cluster-shield-values.yaml", {
-      cluster_name     = local.name
-      access_key       = var.sysdig_accesskey,
-      secure_api_token = var.sysdig_secure_api_token,
-      url              = var.sysdig_secure_url,
-      # gar_secret_name  = kubernetes_secret_v1.gar_cred.metadata.0.name,
-      gar_secret_name  = "gar-cred",
-    }),
-  ]
+#   values = [
+#     templatefile("${path.module}/values/cluster-shield-values.yaml", {
+#       cluster_name     = local.name
+#       access_key       = var.sysdig_accesskey,
+#       secure_api_token = var.sysdig_secure_api_token,
+#       url              = var.sysdig_secure_url,
+#       # gar_secret_name  = kubernetes_secret_v1.gar_cred.metadata.0.name,
+#       gar_secret_name  = "gar-cred",
+#     }),
+#   ]
 
-  atomic = true
+#   atomic = true
 
-  depends_on = [azurerm_kubernetes_cluster.aks]
-}
+#   depends_on = [azurerm_kubernetes_cluster.aks]
+# }
 
 # resource "kubernetes_secret_v1" "gar_cred" {
 #   metadata {
