@@ -16,3 +16,5 @@ example-voting-app/
 sysdig-scanner/main.db/
 sysdig-scanner/main.db.meta.json
 sysdig-scanner/scan-logs
+
+cluster-scanner-load-tests/
