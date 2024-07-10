@@ -60,9 +60,17 @@ clusterShield:
         enabled: true
       container_vulnerability_management:
         enabled: true
+        local_cluster:
+          enabled: true
+          registry_secrets: 
+            - namespace: sysdig-agent
+              secrets:
+                - gar-cred
       posture:
         enabled: true
   image:
     # tag: 466cae8
     # repository: us-docker.pkg.dev/sysdig-artifact-registry-dev/gar-docker/agent/cluster-shield
   replicaCount: 1
+  imagePullSecrets: 
+    - name: "gar-cred"
