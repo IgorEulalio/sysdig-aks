@@ -52,7 +52,7 @@ clusterShield:
     features:
       admission_control:
         dry_run: false
-        deny_on_error: true
+        deny_on_error: false
         enabled: true
         container_vulnerability_management:
           enabled: true
