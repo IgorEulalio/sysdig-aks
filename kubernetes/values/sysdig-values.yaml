@@ -12,7 +12,8 @@ global:
   kspm:
     deploy: true
 nodeAnalyzer:
-  enabled: true
+## disable nodeAnalyzer completely as I'm using host-shield and cluster-shield
+  enabled: false
   nodeAnalyzer:
     benchmarkRunner:
       deploy: false
@@ -26,8 +27,24 @@ nodeAnalyzer:
 kspmCollector:
   enabled: false
 agent:
-  image:
-    tag: 13.2.0
+## extra volumes section is required for host-shield
+  extraVolumes:
+    volumes:
+    - name: root-vol
+      hostPath:
+        path: /
+    - name: tmp-vol
+      hostPath:
+        path: /tmp
+    mounts:
+    - mountPath: /host
+      name: root-vol
+      readOnly: true
+    # The host's tmp directory needs to be writeable for kspm-analyzer to create the scripts it runs.
+    - mountPath: /host/tmp
+      name: tmp-vol
+  # image:
+    # tag: 13.2.0
   ebpf:
     enabled: true
     kind: universal_ebpf
@@ -38,6 +55,11 @@ agent:
       prometheus_exporter:
         enabled: true
         export_health_metrics: true
+      sysdig_api_endpoint: ${sysdig_secure_url}
+      host_scanner:
+        enabled: true
+      kspm_analyzer:
+        enabled: true
   daemonset:
     annotations:
       prometheus.io/scrape: "true"
