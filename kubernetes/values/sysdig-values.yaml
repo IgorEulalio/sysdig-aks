@@ -31,6 +31,17 @@ agent:
   ebpf:
     enabled: true
     kind: universal_ebpf
+  sysdig:
+    settings:
+      feature:
+        mode: secure_light
+      prometheus_exporter:
+        enabled: true
+        export_health_metrics: true
+  daemonset:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9544"
   tolerations:
   - key: MyTolerationKey
     operator: Equal

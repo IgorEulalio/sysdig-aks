@@ -4,7 +4,7 @@ resource "helm_release" "sysdig_agent" {
   namespace        = "sysdig-agent"
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.56.9"
+  version          = "1.61.1"
   create_namespace = true
 
   values = [
