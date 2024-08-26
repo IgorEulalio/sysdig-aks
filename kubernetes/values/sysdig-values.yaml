@@ -58,6 +58,8 @@ agent:
       sysdig_api_endpoint: ${sysdig_secure_url}
       host_scanner:
         enabled: true
+        host_fs_mount_path: /host
+        scan_on_start: true
       kspm_analyzer:
         enabled: true
   daemonset:
