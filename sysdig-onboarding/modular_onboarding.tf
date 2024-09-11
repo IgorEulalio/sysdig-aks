@@ -1,7 +1,24 @@
 module "onboarding" {
   source          = "sysdiglabs/secure/azurerm//modules/onboarding"
-  subscription_id = "c6580cd6-8f4b-4b41-8fdc-7b1d0ac76f6a"
-  tenant_id       = "d2150b2f-9c8e-4d2f-8639-82fbcdffd1e8"
+  subscription_id = local.subscription_id
+  tenant_id       = local.tenant_id
+}
+
+module "event-hub" {
+  source                   = "sysdiglabs/secure/azurerm//modules/integrations/event-hub"
+  subscription_id          = module.onboarding.subscription_id
+  region                   = local.region
+  sysdig_secure_account_id = module.onboarding.sysdig_secure_account_id
+  enable_entra             = false
+  resource_group           = local.resource_group
+}
+
+resource "sysdig_secure_cloud_auth_account_feature" "threat_detection" {
+  account_id = module.onboarding.sysdig_secure_account_id
+  type       = "FEATURE_SECURE_THREAT_DETECTION"
+  enabled    = true
+  components = [module.event-hub.event_hub_component_id]
+  depends_on = [module.event-hub]
 }
 
 module "config-posture" {
