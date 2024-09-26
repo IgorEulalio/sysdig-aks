@@ -27,6 +27,9 @@ nodeAnalyzer:
 kspmCollector:
   enabled: false
 agent:
+## requires agent above 13.3.0
+## drop all capabilities and add a static list present of agent helpers.tpl
+  privileged: false
 ## extra volumes section is required for host-shield
   extraVolumes:
     volumes:
