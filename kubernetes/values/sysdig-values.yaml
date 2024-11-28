@@ -110,7 +110,7 @@ clusterShield:
         deny_on_error: false
         enabled: true
         container_vulnerability_management:
-          enabled: true
+          enabled: false
       audit:
         enabled: true
       container_vulnerability_management:

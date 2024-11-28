@@ -21,8 +21,7 @@ resource "azuread_service_principal_password" "registry_scanner_sp_password" {
 }
 
 resource "azurerm_role_assignment" "registry_scanner_acrpull" {
-  #   scope                = "/subscriptions/${local.subscription_id}/resourceGroups/${azurerm_resource_group.dev.name}/providers/Microsoft.ContainerRegistry/registries/${azurerm_container_registry.acr.name}"
-  scope                = azurerm_container_registry.acr.id
+  scope                = "/subscriptions/${local.subscription_id}/resourceGroups/${azurerm_resource_group.dev.name}/providers/Microsoft.ContainerRegistry/registries/${azurerm_container_registry.acr.name}"
   role_definition_name = "acrpull"
   principal_id         = azuread_service_principal.registry_scanner_sp.id
 }

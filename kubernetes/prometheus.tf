@@ -1,4 +1,5 @@
 resource "helm_release" "prometheus" {
+  count            = var.enable_prometheus ? 1 : 0
   name             = "prometheus"
   namespace        = "monitoring"
   repository       = "https://prometheus-community.github.io/helm-charts"

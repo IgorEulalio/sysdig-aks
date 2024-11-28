@@ -1,0 +1,41 @@
+driver:
+  enabled: false
+collectors:
+  enabled: false
+controller:
+  kind: deployment
+  deployment:
+    replicas: 1
+falcoctl:
+  artifact:
+    install:
+      enabled: true
+    follow:
+      enabled: true
+  config:
+    artifact:
+      install:
+        refs: [k8saudit-rules:0.7]
+      follow:
+        refs: [k8saudit-rules:0.7]
+services:
+  - name: k8saudit-webhook
+    type: NodePort
+    ports:
+      - port: 9765 
+        nodePort: 30007
+        protocol: TCP
+falco:
+  rules_files:
+    - /etc/falco/k8s_audit_rules.yaml
+    - /etc/falco/rules.d
+  plugins:
+    - name: k8saudit
+      library_path: libk8saudit.so
+      init_config:
+        ""
+      open_params: "http://:9765/k8s-audit"
+    - name: json
+      library_path: libjson.so
+      init_config: ""
+  load_plugins: [k8saudit, json]

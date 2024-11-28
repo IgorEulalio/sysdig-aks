@@ -38,3 +38,21 @@ variable "gar_secret" {
 #   type        = string
 #   sensitive   = true
 # }
+
+variable "enable_prometheus" {
+  description = "value to enable prometheus"
+  type        = bool
+  default     = false
+}
+
+variable "enable_falco" {
+  description = "value to enable falco"
+  type        = bool
+  default     = false
+}
+
+variable "enable_audit_logs" {
+  description = "value to enable audit logs"
+  type        = bool
+  default     = true
+}
