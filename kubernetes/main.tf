@@ -45,7 +45,7 @@ resource "azurerm_monitor_diagnostic_setting" "kube_audit" {
   target_resource_id = azurerm_kubernetes_cluster.aks.id
 
   enabled_log {
-    category = "kube-audit"
+    category = "kube-audit-admin"
   }
 
   eventhub_name                  = azurerm_eventhub.auditlogs[0].name
