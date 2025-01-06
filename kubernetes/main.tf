@@ -40,7 +40,7 @@ resource "azurerm_container_registry" "acr" {
 ##############################
 
 resource "azurerm_monitor_diagnostic_setting" "kube_audit" {
-  count               = var.enable_audit_logs ? 1 : 0
+  count              = var.enable_audit_logs ? 1 : 0
   name               = "enable-audot-diagnostic-settings"
   target_resource_id = azurerm_kubernetes_cluster.aks.id
 
@@ -53,7 +53,7 @@ resource "azurerm_monitor_diagnostic_setting" "kube_audit" {
 }
 
 resource "azurerm_eventhub_namespace" "auditlogs" {
-  count               = var.enable_audit_logs ? 1 : 0
+  count                = var.enable_audit_logs ? 1 : 0
   name                 = "aks-audit-logs"
   location             = azurerm_resource_group.dev.location
   resource_group_name  = azurerm_resource_group.dev.name
@@ -76,12 +76,12 @@ resource "azurerm_eventhub_namespace_authorization_rule" "auditlogs" {
   name                = "aks-audit-logs"
   namespace_name      = azurerm_eventhub_namespace.auditlogs[0].name
   resource_group_name = azurerm_resource_group.dev.name
-  listen = true
-  send   = true
+  listen              = true
+  send                = true
 }
 
 output "eventhub_connection_string" {
-  value = azurerm_eventhub_namespace_authorization_rule.auditlogs[0].primary_connection_string
+  value     = azurerm_eventhub_namespace_authorization_rule.auditlogs[0].primary_connection_string
   sensitive = true
 }
 

@@ -56,3 +56,9 @@ variable "enable_audit_logs" {
   type        = bool
   default     = true
 }
+
+variable "enable_sysdig_agent" {
+  description = "whether or not to enable sysdig agent"
+  type        = bool
+  default     = true
+}

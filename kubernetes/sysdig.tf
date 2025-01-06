@@ -1,5 +1,5 @@
 resource "helm_release" "sysdig_agent" {
-
+  count            = var.enable_sysdig_agent ? 1 : 0
   name             = "sysdig-agent"
   namespace        = "sysdig-agent"
   repository       = "https://charts.sysdig.com"
